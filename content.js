@@ -9,6 +9,15 @@ const findAndLogVideoLinks = () => {
     if (el.href && el.href.includes('/watch?v=') && !processedLinks.has(el.href)) {
       processedLinks.add(el.href);
       console.log('Found new video:', el.href);
+
+      // Send the link to the background for processing
+      chrome.runtime.sendMessage({ action: "analyzeVideo", videoUrl: el.href }, (response) => {
+        if (chrome.runtime.lastError) {
+          // Ignore errors from the tab being closed
+          return;
+        }
+        console.log('Background response:', response);
+      });
     }
   });
 };

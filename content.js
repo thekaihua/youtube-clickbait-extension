@@ -16,7 +16,18 @@ const findAndLogVideoLinks = () => {
           // Ignore errors from the tab being closed
           return;
         }
-        console.log('Background response:', response);
+        
+        // Log the full analysis object for debugging
+        console.log('Analysis for', el.href, 'received:', response);
+
+        if (response.status === "success") {
+          // Check the probability score
+          if (response.analysis && response.analysis.clickbait_probability_score >= 80) {
+            console.log(`%cClickbait DETECTED (Score: ${response.analysis.clickbait_probability_score})`, 'color: red; font-weight: bold;', el.href);
+          }
+        } else {
+          console.error('Analysis failed for', el.href, ':', response.message);
+        }
       });
     }
   });

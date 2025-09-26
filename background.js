@@ -38,7 +38,7 @@ const processQueue = async () => {
           2. A "clickbait_probability_score" (a number from 0 to 100) representing the likelihood that the video is clickbait.
           3. A brief "reasoning" for your score.
         `;
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
